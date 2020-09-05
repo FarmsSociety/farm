@@ -1,6 +1,8 @@
 package cn.doeon.farm.shop.scienceActivity.controller;
 
 
+import cn.doeon.farm.shop.bean.common.ResponseResult;
+import cn.doeon.farm.shop.bean.common.ResultMsg;
 import cn.doeon.farm.shop.bean.enums.ResultStatus;
 import cn.doeon.farm.shop.bean.model.science.ActivityEvaluate;
 import cn.doeon.farm.shop.bean.model.science.ActivityInfo;
@@ -23,12 +25,16 @@ public class ScienceActivityEvaluateController {
 
     @ApiOperation(value = "获取某个活动评论列表", notes = "获取某个活动评论列表")
     @GetMapping("/listByActivityId")
-    public ResponseEntity<IPage<ActivityEvaluate>> getActivityEvaluateList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+    public ResponseResult<IPage<ActivityEvaluate>> getActivityEvaluateList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                                            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                                                            @RequestParam(name = "activityId")String activityId) {
+        ResponseResult<IPage<ActivityEvaluate>> result = new ResponseResult<>();
         Page<ActivityInfo> page = new Page<>(pageNo, pageSize);
         IPage<ActivityEvaluate> evaluateList = scienceActivityEvaluateService.getActivityEvaluateList(page, activityId);
-        return ResponseEntity.ok(evaluateList);
+        result.setData(evaluateList);
+        result.setStatus(ResultStatus.SUCCESS.value());
+        result.setMsg(ResultMsg.MSG_SUCCESS);
+        return result;
     }
 
     @ApiOperation(value = "删除某条评论", notes = "删除某条评论接口")
