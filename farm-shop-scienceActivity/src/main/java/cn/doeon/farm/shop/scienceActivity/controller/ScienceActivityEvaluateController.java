@@ -39,15 +39,21 @@ public class ScienceActivityEvaluateController {
 
     @ApiOperation(value = "删除某条评论", notes = "删除某条评论接口")
     @DeleteMapping("/delete")
-    public ResponseEntity<Integer> deleteEvaluateById(@RequestParam(name = "id")String id){
+    public ResponseResult deleteEvaluateById(@RequestParam(name = "id")String id){
         boolean isSuccess = scienceActivityEvaluateService.removeById(id);
-        return ResponseEntity.ok(isSuccess ? ResultStatus.SUCCESS.value() : ResultStatus.FAIL.value());
+        ResponseResult result = new ResponseResult();
+        result.setStatus(isSuccess ? ResultStatus.SUCCESS.value() : ResultStatus.FAIL.value());
+        result.setMsg((isSuccess ? ResultMsg.MSG_SUCCESS : ResultMsg.MSG_FAIL));
+        return result;
     }
 
     @ApiOperation(value = "发表评论", notes = "发表评论接口")
     @PostMapping("/publish")
-    public ResponseEntity<Integer> publishOneEvaluate(@RequestBody ActivityEvaluate activityEvaluate){
+    public ResponseResult publishOneEvaluate(@RequestBody ActivityEvaluate activityEvaluate){
         boolean isSuccess =scienceActivityEvaluateService.save(activityEvaluate);
-        return ResponseEntity.ok(isSuccess ? ResultStatus.SUCCESS.value() : ResultStatus.FAIL.value());
+        ResponseResult result = new ResponseResult();
+        result.setStatus(isSuccess ? ResultStatus.SUCCESS.value() : ResultStatus.FAIL.value());
+        result.setMsg((isSuccess ? ResultMsg.MSG_SUCCESS : ResultMsg.MSG_FAIL));
+        return result;
     }
 }
