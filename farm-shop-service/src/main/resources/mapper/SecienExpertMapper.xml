@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.doeon.farm.shop.dao.ScienceExpertMapper">
+
+    <!-- 获取专家列表   -->
+    <select id="getExpertList" resultType="cn.doeon.farm.shop.bean.model.science.Expert">
+        SELECT * FROM science_expert
+    </select>
+
+
+    <!-- 通过姓名获取专家信息 -->
+    <select id="getExpertInfoByName" resultType="cn.doeon.farm.shop.bean.model.science.Expert">
+        SELECT * FROM science_expert WHERE name = #{name}
+    </select>
+</mapper>

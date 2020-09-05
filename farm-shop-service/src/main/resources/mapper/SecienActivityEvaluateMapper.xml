@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.doeon.farm.shop.dao.ScienceActivityEvaluateMapper">
+
+    <!-- 获取某个活动评论列表   -->
+    <select id="getActivityEvaluateList" resultType="cn.doeon.farm.shop.bean.model.science.ActivityEvaluate">
+        SELECT * FROM science_activity_evaluate where activity_id = #{activityId}
+    </select>
+
+</mapper>

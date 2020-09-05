@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.doeon.farm.shop.dao.ScienceActivityMapper">
+
+    <!-- 获取活动列表   -->
+    <select id="getActivityList" resultType="cn.doeon.farm.shop.bean.model.science.ActivityInfo">
+        SELECT * FROM science_activity
+    </select>
+
+    <!-- 根据ID删除活动 -->
+    <delete id="deleteActivityById">
+        DELETE FROM science_activity WHERE id = #{id}
+    </delete>
+
+    <!-- 根据ID查询活动信息 -->
+    <select id="getActivityInfoById" resultType="cn.doeon.farm.shop.bean.model.science.ActivityInfo">
+        SELECT * FROM science_activity WHERE id = #{id}
+    </select>
+
+    <!-- 根据ID查询活动信息 -->
+    <update id="updateActivityStatus" >
+        UPDATE science_activity SET activity_status = #{activityStatus} WHERE id = #{id}
+    </update>
+</mapper>
