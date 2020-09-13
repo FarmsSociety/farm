@@ -79,9 +79,9 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
 
         RedisUtil.del(kaptchaKey);
 
-        if(StrUtil.isBlank(adminAuthenticationToken.getImageCode()) || !adminAuthenticationToken.getImageCode().equalsIgnoreCase(kaptcha)){
-            throw new ImageCodeNotMatchExceptionBase("验证码有误");
-        }
+//        if(StrUtil.isBlank(adminAuthenticationToken.getImageCode()) || !adminAuthenticationToken.getImageCode().equalsIgnoreCase(kaptcha)){
+//            throw new ImageCodeNotMatchExceptionBase("验证码有误");
+//        }
 
         UserDetails user;
         try {

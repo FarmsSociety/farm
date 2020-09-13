@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.doeon.farm.shop.bean.model.AttachFile;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -21,7 +22,7 @@ import cn.doeon.farm.shop.bean.model.AttachFile;
  */
 public interface AttachFileService extends IService<AttachFile> {
 
-	String uploadFile(byte[] bytes,String originalName) throws IOException;
+	String uploadFile(MultipartFile file) throws IOException;
 	
 	void deleteFile(String fileName);
 }

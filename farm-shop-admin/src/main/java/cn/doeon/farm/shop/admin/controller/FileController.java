@@ -42,13 +42,13 @@ public class FileController {
 		if(file.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-		String fileName = attachFileService.uploadFile(file.getBytes(),file.getOriginalFilename());
+		String fileName = attachFileService.uploadFile(file);
         return ResponseEntity.ok(fileName);
 	}
 	
 	@PostMapping("/upload/tinymceEditor")
 	public ResponseEntity<String> uploadTinymceEditorImages(@RequestParam("editorFile") MultipartFile editorFile) throws IOException{
-		String fileName =  attachFileService.uploadFile(editorFile.getBytes(),editorFile.getOriginalFilename());
+		String fileName =  attachFileService.uploadFile(editorFile);
         return ResponseEntity.ok(qiniu.getResourcesUrl() + fileName);
 	}
 	

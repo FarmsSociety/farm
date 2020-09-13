@@ -10,8 +10,11 @@
 
 package cn.doeon.farm.shop.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
+import cn.doeon.farm.shop.common.util.FileUploadUtil;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -33,6 +36,7 @@ import cn.doeon.farm.shop.service.AttachFileService;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -59,11 +63,13 @@ public class AttachFileServiceImpl extends ServiceImpl<AttachFileMapper, AttachF
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public String uploadFile(byte[] bytes,String originalName) throws QiniuException {
+	public String uploadFile(MultipartFile mfile) throws IOException {
+		byte[] bytes = mfile.getBytes();
+		String originalName = mfile.getOriginalFilename();
 		String extName = FileUtil.extName(originalName);
-		String fileName =DateUtil.format(new Date(), NORM_MONTH_PATTERN)+ IdUtil.simpleUUID() + "." + extName;
-
-
+		String path = "/root/tmp/"+DateUtil.format(new Date(), NORM_MONTH_PATTERN);
+		String picName = IdUtil.simpleUUID() + "." + extName;
+		String fileName = path+ picName;
 		AttachFile attachFile = new AttachFile();
 		attachFile.setFilePath(fileName);
 		attachFile.setFileSize(bytes.length);
@@ -71,9 +77,7 @@ public class AttachFileServiceImpl extends ServiceImpl<AttachFileMapper, AttachF
 		attachFile.setUploadTime(new Date());
 		attachFileMapper.insert(attachFile);
 
-		String upToken = auth.uploadToken(qiniu.getBucket(),fileName);
-	    Response response = uploadManager.put(bytes, fileName, upToken);
-	    Json.parseObject(response.bodyString(),  DefaultPutRet.class);
+		FileUploadUtil.approvalFile(mfile,path,picName);
 		return fileName;
 	}
 
@@ -81,8 +85,8 @@ public class AttachFileServiceImpl extends ServiceImpl<AttachFileMapper, AttachF
 	public void deleteFile(String fileName){
 		attachFileMapper.delete(new LambdaQueryWrapper<AttachFile>().eq(AttachFile::getFilePath,fileName));
 		try {
-			bucketManager.delete(qiniu.getBucket(), fileName);
-		} catch (QiniuException e) {
+			new File(fileName).delete();
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
