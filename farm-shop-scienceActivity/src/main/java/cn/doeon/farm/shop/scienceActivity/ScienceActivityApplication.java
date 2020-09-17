@@ -17,7 +17,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @author hxy
+ * @author hxy 李纪元
  */
 @SpringBootApplication
 @ComponentScan(basePackages = {"cn.doeon.farm.shop"})
