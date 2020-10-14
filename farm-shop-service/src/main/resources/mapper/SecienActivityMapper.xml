@@ -3,8 +3,19 @@
 <mapper namespace="cn.doeon.farm.shop.dao.ScienceActivityMapper">
 
     <!-- 获取活动列表   -->
-    <select id="getActivityList" resultType="cn.doeon.farm.shop.bean.model.science.ActivityInfo">
-        SELECT * FROM science_activity
+    <select id="getActivityList" resultType="cn.doeon.farm.shop.bean.model.science.ActivityInfo" >
+        SELECT sa.* FROM science_activity sa
+        where 1=1
+        <if test="activityInfo.title != null and activityInfo.title != ''">
+            and sa.title like concat('%',#{activityInfo.title},'%')
+        </if>
+        <if test="activityInfo.activityStatus != null and activityInfo.activityStatus != ''">
+            and  sa.activity_status  =  #{activityInfo.activityStatus}
+        </if>
+        <if test="activityInfo.date != null and activityInfo.date != ''">
+            and  DATE_FORMAT(sa.start_time, '%y%m%d')  <![CDATA[<=]]> DATE_FORMAT(#{activityInfo.date}, '%y%m%d')
+            and  DATE_FORMAT(sa.end_time, '%y%m%d')  <![CDATA[ >= ]]>  DATE_FORMAT(#{activityInfo.date}, '%y%m%d')
+        </if>
     </select>
 
     <!-- 根据ID删除活动 -->

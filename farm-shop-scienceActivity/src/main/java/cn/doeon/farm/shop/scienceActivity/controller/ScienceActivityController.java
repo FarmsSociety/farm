@@ -12,6 +12,7 @@ package cn.doeon.farm.shop.scienceActivity.controller;
 
 import cn.doeon.farm.shop.bean.common.ResponseResult;
 import cn.doeon.farm.shop.bean.common.ResultMsg;
+import cn.doeon.farm.shop.bean.dto.ActivityInfoDto;
 import cn.doeon.farm.shop.bean.model.science.ActivityPraise;
 import cn.doeon.farm.shop.bean.enums.ResultStatus;
 import cn.doeon.farm.shop.bean.model.science.ActivityInfo;
@@ -54,10 +55,11 @@ public class ScienceActivityController {
     @ApiOperation(value = "获取活动列表", notes = "获取活动列表接口")
     @GetMapping("/list")
     public ResponseResult<IPage<ActivityInfo>> getActivityList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
-                                                               @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+                                                               @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                               ActivityInfoDto activityInfo) {
         ResponseResult<IPage<ActivityInfo>> result = new ResponseResult<>();
         Page<ActivityInfo> page = new Page<>(pageNo, pageSize);
-        IPage<ActivityInfo> activityList = scienceActivityService.getActivityList(page);
+        IPage<ActivityInfo> activityList = scienceActivityService.getActivityList(page,activityInfo);
         result.setData(activityList);
         result.setStatus(ResultStatus.SUCCESS.value());
         result.setMsg(ResultMsg.MSG_SUCCESS);

@@ -1,5 +1,6 @@
 package cn.doeon.farm.shop.service.impl;
 
+import cn.doeon.farm.shop.bean.dto.ExpertDto;
 import cn.doeon.farm.shop.bean.model.science.Expert;
 import cn.doeon.farm.shop.dao.ScienceExpertMapper;
 import cn.doeon.farm.shop.service.ScienceExpertService;
@@ -17,8 +18,8 @@ public class ScienceExpertServiceImpl extends ServiceImpl<ScienceExpertMapper, E
     private ScienceExpertMapper scienceExpertMapper;
 
     @Override
-    public IPage<Expert> getExpertList(Page page) {
-        return scienceExpertMapper.getExpertList(page);
+    public IPage<Expert> getExpertList(Page page, ExpertDto expertDto) {
+        return scienceExpertMapper.getExpertList(page,expertDto);
     }
 
     @Override

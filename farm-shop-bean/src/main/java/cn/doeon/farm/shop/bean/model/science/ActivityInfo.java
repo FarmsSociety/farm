@@ -25,11 +25,11 @@ public class ActivityInfo implements Serializable {
     @ApiModelProperty(value ="活动名称", required = true)
     private String title;
     @ApiModelProperty(value ="活动开始时间", required = true)
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value ="活动结束时间", required = true)
     private Date endTime;
     @ApiModelProperty(value ="活动内容介绍", required = true)
@@ -42,7 +42,7 @@ public class ActivityInfo implements Serializable {
     private String phone;
     @ApiModelProperty(value ="活动状态，0-未开始，1-进行中，2-结束", required = true)
     private int activityStatus;
-    @ApiModelProperty(value ="活动图片地址，以逗号分隔", required = true)
+    @ApiModelProperty(value ="活动封面图", required = true)
     private String iconUrl;
     @ApiModelProperty(value ="报名条件，0-所有人，1-vip会员，2-其他", required = true)
     private int conditions;
@@ -52,4 +52,15 @@ public class ActivityInfo implements Serializable {
     private int preacherIdentity;
     @ApiModelProperty(value ="活动类型，0-科技服务，1-招募活动", required = true)
     private int activityType;
+    //新加字段
+    @ApiModelProperty(value ="参与人数", required = true)
+    private int peopleNum;
+    @ApiModelProperty(value ="主办方", required = true)
+    private String sponsor;
+    @ApiModelProperty(value ="联系人", required = true)
+    private String personName;
+    @ApiModelProperty(value ="详情", required = true)
+    private String activityDetails;
+    @ApiModelProperty(value ="活动宣传图，以逗号分隔", required = true)
+    private String publicizeImgUrl;
 }

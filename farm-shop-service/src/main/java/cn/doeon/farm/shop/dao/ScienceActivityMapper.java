@@ -1,5 +1,6 @@
 package cn.doeon.farm.shop.dao;
 
+import cn.doeon.farm.shop.bean.dto.ActivityInfoDto;
 import cn.doeon.farm.shop.bean.model.science.ActivityInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface ScienceActivityMapper extends BaseMapper<ActivityInfo> {
 
-    IPage<ActivityInfo> getActivityList(Page page);
+    IPage<ActivityInfo> getActivityList(Page page,@Param("activityInfo") ActivityInfoDto activityInfo);
 
     int deleteActivityById(@Param("id")String id);
 

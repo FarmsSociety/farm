@@ -1,5 +1,6 @@
 package cn.doeon.farm.shop.service.impl;
 
+import cn.doeon.farm.shop.bean.dto.ActivityInfoDto;
 import cn.doeon.farm.shop.bean.model.science.ActivityInfo;
 import cn.doeon.farm.shop.dao.ScienceActivityMapper;
 import cn.doeon.farm.shop.service.ScienceActivityService;
@@ -15,8 +16,8 @@ public class ScienceActivityServiceImpl extends ServiceImpl<ScienceActivityMappe
     private ScienceActivityMapper scienceActivityMapper;
 
     @Override
-    public IPage<ActivityInfo> getActivityList(Page page) {
-        return scienceActivityMapper.getActivityList(page);
+    public IPage<ActivityInfo> getActivityList(Page page, ActivityInfoDto activityInfo) {
+        return scienceActivityMapper.getActivityList(page,activityInfo);
     }
 
     @Override

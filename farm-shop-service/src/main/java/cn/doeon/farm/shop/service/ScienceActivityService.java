@@ -1,5 +1,6 @@
 package cn.doeon.farm.shop.service;
 
+import cn.doeon.farm.shop.bean.dto.ActivityInfoDto;
 import cn.doeon.farm.shop.bean.model.science.ActivityInfo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -7,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 public interface ScienceActivityService extends IService<ActivityInfo> {
 
-    IPage<ActivityInfo> getActivityList(Page page);
+    IPage<ActivityInfo> getActivityList(Page page, ActivityInfoDto activityInfo);
 
     boolean deleteActivityById(String id);
 

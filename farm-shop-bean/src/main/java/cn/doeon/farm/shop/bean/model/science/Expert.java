@@ -33,15 +33,30 @@ public class Expert implements Serializable {
     @ApiModelProperty(value = "专家电话",required=true)
     private String phone;
 
-    @ApiModelProperty(value = "专家类型 0-普通；1-专家； 2-教授",required=true)
+    @ApiModelProperty(value = "专家类型等级 0-普通；1-专家； 2-教授",required=true)
     private Integer type;
 
-    @ApiModelProperty(value = "专家擅长领域",required=true)
+    @ApiModelProperty(value = "专家擅长方向领域",required=true)
     private String area;
 
-    @ApiModelProperty(value = "专家描述",required=true)
+    @ApiModelProperty(value = "专家头像",required=true)
+    private String avatar;
+
+    @ApiModelProperty(value = "专家简介",required=true)
     private String description;
 
-    @ApiModelProperty(value = "相关图片",required=true)
+    @ApiModelProperty(value = "专家图册",required=true)
     private String iconUrl;
+    //增加地址
+    @ApiModelProperty(value = "专家地址",required=true)
+    private String address;
+
+    @ApiModelProperty(value = "专家详情",required=true)
+    private String expertDetails;
+
+    @ApiModelProperty(value = "专家工作开始时间",required=true)
+    private String startTime;
+
+    @ApiModelProperty(value = "专家工作截止时间",required=true)
+    private String endTime;
 }

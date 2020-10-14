@@ -4,7 +4,18 @@
 
     <!-- 获取专家列表   -->
     <select id="getExpertList" resultType="cn.doeon.farm.shop.bean.model.science.Expert">
-        SELECT * FROM science_expert
+        SELECT se.* FROM science_expert se
+        where 1=1
+        <if test="expertDto.name != null and expertDto.name != ''">
+            and se.name like concat('%',#{expertDto.name},'%')
+        </if>
+        <if test="expertDto.phone != null and expertDto.phone != ''">
+            and se.phone like concat('%',#{expertDto.phone},'%')
+        </if>
+        <if test="expertDto.date != null and expertDto.date != ''">
+            and  DATE_FORMAT(se.start_time, '%y%m%d')  <![CDATA[<=]]> DATE_FORMAT(#{expertDto.date}, '%y%m%d')
+            and  DATE_FORMAT(se.end_time, '%y%m%d')  <![CDATA[ >= ]]>  DATE_FORMAT(#{expertDto.date}, '%y%m%d')
+        </if>
     </select>
 
 

@@ -2,6 +2,7 @@ package cn.doeon.farm.shop.scienceActivity.controller;
 
 import cn.doeon.farm.shop.bean.common.ResponseResult;
 import cn.doeon.farm.shop.bean.common.ResultMsg;
+import cn.doeon.farm.shop.bean.dto.ExpertDto;
 import cn.doeon.farm.shop.bean.enums.ResultStatus;
 import cn.doeon.farm.shop.bean.model.science.Expert;
 import cn.doeon.farm.shop.service.ScienceExpertService;
@@ -32,10 +33,11 @@ public class ScienceExpertController {
     @ApiOperation(value = "获取专家列表", notes = "获取专家列表接口")
     @GetMapping("/list")
     public ResponseResult<IPage<Expert>> getExpertList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
-                                                       @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+                                                       @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                       ExpertDto expertDto) {
         ResponseResult<IPage<Expert>> result = new ResponseResult<>();
         Page<Expert> page = new Page<>(pageNo, pageSize);
-        IPage<Expert> expertList = scienceExpertService.getExpertList(page);
+        IPage<Expert> expertList = scienceExpertService.getExpertList(page,expertDto);
         result.setData(expertList);
         result.setStatus(ResultStatus.SUCCESS.value());
         result.setMsg(ResultMsg.MSG_SUCCESS);
