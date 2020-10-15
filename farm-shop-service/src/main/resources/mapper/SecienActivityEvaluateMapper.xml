@@ -7,4 +7,18 @@
         SELECT * FROM science_activity_evaluate where activity_id = #{activityId}
     </select>
 
+    <select id="listByUserId" resultType="cn.doeon.farm.shop.bean.dto.ActivityEvaluateDto">
+        SELECT
+        sae.id,
+        sae.activity_id,
+        sae.user_id,
+        sae.content,
+        sap.name,
+        sap.avatar,
+        sae.date
+        FROM science_activity_evaluate sae
+        left join science_activity_participants sap on  sae.user_id = sap.id
+        where sae.user_id = #{userId}
+    </select>
+
 </mapper>

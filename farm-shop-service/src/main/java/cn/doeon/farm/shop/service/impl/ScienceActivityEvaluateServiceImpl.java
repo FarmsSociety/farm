@@ -1,5 +1,7 @@
 package cn.doeon.farm.shop.service.impl;
 
+import cn.doeon.farm.shop.bean.dto.ActivityEvaluateDto;
+import cn.doeon.farm.shop.bean.model.science.ActivityInfo;
 import cn.doeon.farm.shop.bean.model.science.ActivityPraise;
 import cn.doeon.farm.shop.bean.model.science.ActivityEvaluate;
 import cn.doeon.farm.shop.dao.ScienceActivityEvaluateMapper;
@@ -18,5 +20,10 @@ public class ScienceActivityEvaluateServiceImpl extends ServiceImpl<ScienceActiv
     @Override
     public IPage<ActivityEvaluate> getActivityEvaluateList(Page page, String activityId) {
         return scienceActivityEvaluateMapper.getActivityEvaluateList(page, activityId);
+    }
+
+    @Override
+    public IPage<ActivityEvaluateDto> listByUserId(Page<ActivityInfo> page, String userId) {
+        return scienceActivityEvaluateMapper.listByUserId(page, userId);
     }
 }

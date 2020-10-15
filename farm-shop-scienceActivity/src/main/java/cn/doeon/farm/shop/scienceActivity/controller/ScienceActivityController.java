@@ -13,11 +13,14 @@ package cn.doeon.farm.shop.scienceActivity.controller;
 import cn.doeon.farm.shop.bean.common.ResponseResult;
 import cn.doeon.farm.shop.bean.common.ResultMsg;
 import cn.doeon.farm.shop.bean.dto.ActivityInfoDto;
+import cn.doeon.farm.shop.bean.dto.ActivityParticipantsDto;
+import cn.doeon.farm.shop.bean.model.science.ActivityParticipants;
 import cn.doeon.farm.shop.bean.model.science.ActivityPraise;
 import cn.doeon.farm.shop.bean.enums.ResultStatus;
 import cn.doeon.farm.shop.bean.model.science.ActivityInfo;
 import cn.doeon.farm.shop.dao.ScienceActivityPraiseMapper;
 import cn.doeon.farm.shop.service.ScienceActivityEvaluateService;
+import cn.doeon.farm.shop.service.ScienceActivityParticipantsService;
 import cn.doeon.farm.shop.service.ScienceActivityPraiseService;
 import cn.doeon.farm.shop.service.ScienceActivityService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -37,11 +40,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/science/activity")
-@Api(tags = "科技活动模块接口")
+@Api(tags = "活动招募模块")
 public class ScienceActivityController {
 
     @Autowired
     private ScienceActivityService scienceActivityService;
+    @Autowired
+    private ScienceActivityParticipantsService scienceActivityParticipantsService;
     @Autowired
     private ScienceActivityEvaluateService scienceActivityEvaluateService;
     @Autowired
@@ -52,7 +57,7 @@ public class ScienceActivityController {
      *
      * @return
      */
-    @ApiOperation(value = "获取活动列表", notes = "获取活动列表接口")
+    @ApiOperation(value = "获取活动招募列表", notes = "获取活动招募列表")
     @GetMapping("/list")
     public ResponseResult<IPage<ActivityInfo>> getActivityList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
@@ -71,7 +76,7 @@ public class ScienceActivityController {
      *
      * @return
      */
-    @ApiOperation(value = "发布活动", notes = "发布活动接口")
+    @ApiOperation(value = "活动信息添加", notes = "活动信息添加")
     @PostMapping("/publish")
     public ResponseResult publishActivity(@RequestBody ActivityInfo activityInfo) {
         scienceActivityService.saveOrUpdate(activityInfo);
@@ -87,7 +92,7 @@ public class ScienceActivityController {
      *
      * @return
      */
-    @ApiOperation(value = "删除活动", notes = "删除活动接口")
+    @ApiOperation(value = "活动信息删除", notes = "活动信息删除")
     @DeleteMapping("/delete")
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteActivityById(@RequestParam(name = "id") String id) {
@@ -103,7 +108,7 @@ public class ScienceActivityController {
      *
      * @return
      */
-    @ApiOperation(value = "查询活动信息", notes = "查询活动信息接口")
+    @ApiOperation(value = "活动信息详情", notes = "活动信息详情")
     @GetMapping("/info")
     public ResponseResult<ActivityInfo> getActivityInfoById(@RequestParam(name = "id") String id) {
         ActivityInfo activityInfo = scienceActivityService.getActivityInfoById(id);
@@ -119,7 +124,7 @@ public class ScienceActivityController {
      *
      * @return
      */
-    @ApiOperation(value = "更新活动状态信息", notes = "更新活动状态信息接口")
+    @ApiOperation(value = "活动信息更新", notes = "活动信息更新接口")
     @PutMapping("/status")
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult updateActivityStatus(@RequestParam(name = "id") String id,
@@ -144,5 +149,61 @@ public class ScienceActivityController {
         result.setMsg(isSuccess ? ResultMsg.MSG_SUCCESS : ResultMsg.MSG_FAIL);
         return result;
     }
+     /**
+      * @Author hexy
+      * @Description  活动报名
+      * @Date 10:51 2020/10/15
+      * @Param 
+      * @return 
+     */
+     @ApiOperation(value = "活动参与报名", notes = "活动参与报名")
+     @PostMapping("/participateActivity")
+     public ResponseResult participateActivity(@RequestBody ActivityParticipants activityParticipants) {
+         scienceActivityParticipantsService.saveOrUpdate(activityParticipants);
+         ResponseResult result = new ResponseResult();
+         result.setStatus(ResultStatus.SUCCESS.value());
+         result.setMsg(ResultMsg.MSG_SUCCESS);
+         return result;
+     }
+      /**
+       * @Author hexy
+       * @Description 活动参与报名状态审核
+       * @Date 11:38 2020/10/15
+       * @Param 
+       * @return 
+      */   
+    @ApiOperation(value = "活动参与报名状态审核", notes = "活动参与报名状态审核")
+    @PutMapping("/updatePersonActivityStatus")
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult updatePersonActivityStatus(@RequestParam(name = "id") String id,
+                                               @RequestParam(name = "signStatus") Integer signStatus) {
+        boolean isSuccess = scienceActivityParticipantsService.updatePersonActivityStatus(id, signStatus);
+        ResponseResult result = new ResponseResult();
+        result.setStatus(isSuccess ? ResultStatus.SUCCESS.value() : ResultStatus.FAIL.value());
+        result.setMsg(isSuccess ? ResultMsg.MSG_SUCCESS : ResultMsg.MSG_FAIL);
+        return result;
+    }
+     /**
+      * @Author hexy
+      * @Description  活动参与报名列表
+      * @Date 11:57 2020/10/15
+      * @Param 
+      * @return 
+     */
+    @ApiOperation(value = "活动参与报名列表", notes = "活动参与报名列表")
+    @GetMapping("/getSignUpActivityList")
+    public ResponseResult<IPage<ActivityParticipants>> getSignUpActivityList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+                                                               @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                               ActivityParticipantsDto activityParticipantsDto) {
+        ResponseResult<IPage<ActivityParticipants>> result = new ResponseResult<>();
+        Page<ActivityParticipants> page = new Page<>(pageNo, pageSize);
+        IPage<ActivityParticipants> activityList = scienceActivityParticipantsService.getSignUpActivityList(page,activityParticipantsDto);
+        result.setData(activityList);
+        result.setStatus(ResultStatus.SUCCESS.value());
+        result.setMsg(ResultMsg.MSG_SUCCESS);
+        return result;
+    }
+
+
 
 }

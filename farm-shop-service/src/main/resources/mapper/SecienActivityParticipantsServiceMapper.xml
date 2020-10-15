@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.doeon.farm.shop.dao.ScienceActivityParticipantsMapper">
+    <!-- 根据ID修改审核状态信息 -->
+    <update id="updatePersonActivityStatus" >
+        UPDATE science_activity_participants SET sign_status = #{signStatus} WHERE id = #{id}
+    </update>
+    <!-- 活动参与报名列表   -->
+    <select id="getSignUpActivityList" resultType="cn.doeon.farm.shop.bean.model.science.ActivityParticipants" >
+        SELECT sa.* FROM science_activity_participants sa
+        where 1=1
+        <if test="activityParticipantsDto.name != null and activityParticipantsDto.name != ''">
+            and sa.name like concat('%',#{activityParticipantsDto.name},'%')
+        </if>
+        <if test="activityParticipantsDto.id != null and activityParticipantsDto.id != ''">
+            and sa.id =  #{activityParticipantsDto.id}
+        </if>
+        <if test="activityParticipantsDto.activityId != null and activityParticipantsDto.activityId != ''">
+            and  sa.activity_id  =  #{activityParticipantsDto.activityId}
+        </if>
+
+    </select>
+</mapper>

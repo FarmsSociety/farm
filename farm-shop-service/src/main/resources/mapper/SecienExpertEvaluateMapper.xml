@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.doeon.farm.shop.dao.ScienceExpertEvaluateMapper">
+    <!-- 根据ID修改审核状态信息 -->
+    <update id="updateExpertEvaluateStatus" >
+        UPDATE science_expert_evaluate SET verify = #{verifyStatu} WHERE id = #{id}
+    </update>
+
+    <!-- 获取活动列表   -->
+    <select id="getexpertEvaluatelist" resultType="cn.doeon.farm.shop.bean.dto.ExpertEvaluateDto" >
+        SELECT
+        sa.verify,
+        sa.content,
+        sa.date,
+        sm.name,
+        sm.avatar,
+        sm.phone_num
+        FROM science_expert_evaluate sa
+        left join science_member sm on sa.user_id = sm.id
+        where 1=1
+        <if test="expertEvaluate.userId != null and expertEvaluate.userId  != ''">
+            and  sa.user_id  =  #{expertEvaluate.userId }
+        </if>
+        <if test="expertEvaluate.expertId != null and expertEvaluate.expertId != ''">
+            and  sa.expert_id  =  #{expertEvaluate.expertId}
+        </if>
+
+    </select>
+</mapper>
