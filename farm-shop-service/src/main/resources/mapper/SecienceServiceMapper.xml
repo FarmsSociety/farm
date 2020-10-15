@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.doeon.farm.shop.dao.ScienceServiceMapper">
+    <!-- 获取会员列表   -->
+    <select id="getScienceServiceList" resultType="cn.doeon.farm.shop.bean.model.science.ScienceService" >
+        SELECT
+        sa.*
+        FROM science_service sa
+        where 1=1
+        <if test="scienceServiceDto.title != null and scienceServiceDto.title  != ''">
+            and  sa.title  like concat('%',#{scienceServiceDto.title},'%')
+        </if>
+        <if test="scienceServiceDto.date != null and scienceServiceDto.date != ''">
+            and  DATE_FORMAT(sa.start_time, '%y%m%d')  <![CDATA[<=]]> DATE_FORMAT(#{scienceServiceDto.date}, '%y%m%d')
+            and  DATE_FORMAT(sa.end_time, '%y%m%d')  <![CDATA[ >= ]]>  DATE_FORMAT(#{scienceServiceDto.date}, '%y%m%d')
+        </if>
+
+    </select>
+
+
+
+
+</mapper>
