@@ -14,9 +14,9 @@ import java.util.Date;
 
 
 @Data
-@TableName("tz_wxactive")
+@TableName("tz_Wxactive")
 @ApiModel
-public class Wxacitve implements Serializable {
+public class Wxactive implements Serializable {
     @TableId
     @ApiModelProperty(value = "编号ID")
     private Long id;
@@ -31,12 +31,15 @@ public class Wxacitve implements Serializable {
     private String content;
 
     @ApiModelProperty(value ="创建时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String createTime;
 
     @ApiModelProperty(value ="开始时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String startTime;
 
     @ApiModelProperty(value ="结束时间")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String endTime;
 
     @ApiModelProperty(value ="招募状态，1-等待开始，2-进行中，3-结束")
