@@ -33,8 +33,8 @@ public class ScienceParticipants implements Serializable {
     private String email;
     @ApiModelProperty(value = "头像", required = true)
     private String avatar;
-    @ApiModelProperty(value = "活动id", required = true)
-    private String activityId;
+    @ApiModelProperty(value = "服务id", required = true)
+    private String serviceId;
     @ApiModelProperty(value = "备注信息", required = false)
     private String remark;
     @ApiModelProperty(value = "报名状态0:未审核1：审核未通过2：审核已通过", required = true)
