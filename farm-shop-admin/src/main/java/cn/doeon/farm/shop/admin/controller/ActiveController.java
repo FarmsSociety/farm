@@ -40,7 +40,7 @@ public class ActiveController {
      *
      * @return
      */
-    @ApiOperation(value = "获取活动列表", notes = "获取活动列表接口")
+    @ApiOperation(value = "获取活动招募列表", notes = "获取活动招募列表")
     @GetMapping("/list")
     public ResponseResult<IPage<ActivityInfo>> getActivityList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
