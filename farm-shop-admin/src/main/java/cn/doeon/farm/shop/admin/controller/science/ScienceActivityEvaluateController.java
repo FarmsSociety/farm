@@ -1,4 +1,4 @@
-package cn.doeon.farm.shop.scienceActivity.controller;
+package cn.doeon.farm.shop.admin.controller.science;
 
 
 import cn.doeon.farm.shop.bean.common.ResponseResult;
@@ -13,7 +13,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

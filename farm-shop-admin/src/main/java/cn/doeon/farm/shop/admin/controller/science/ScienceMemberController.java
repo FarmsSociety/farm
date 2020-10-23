@@ -1,23 +1,16 @@
-package cn.doeon.farm.shop.scienceActivity.controller;
+package cn.doeon.farm.shop.admin.controller.science;
 
 import cn.doeon.farm.shop.bean.common.ResponseResult;
 import cn.doeon.farm.shop.bean.common.ResultMsg;
-import cn.doeon.farm.shop.bean.dto.EvaluateDto;
-import cn.doeon.farm.shop.bean.dto.ExpertDto;
 import cn.doeon.farm.shop.bean.dto.MemberDto;
 import cn.doeon.farm.shop.bean.enums.ResultStatus;
-import cn.doeon.farm.shop.bean.model.science.Expert;
-import cn.doeon.farm.shop.bean.model.science.ExpertEvaluate;
 import cn.doeon.farm.shop.bean.model.science.Member;
-import cn.doeon.farm.shop.service.ScienceExpertEvaluateService;
-import cn.doeon.farm.shop.service.ScienceExpertService;
 import cn.doeon.farm.shop.service.ScienceMemberService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 

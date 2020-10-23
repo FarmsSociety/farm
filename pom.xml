@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>farm-shop-scienceActivity</module>
+<!--        <module>farm-shop-scienceActivity</module>-->
         <module>farm-shop-admin</module>
         <module>farm-shop-sys</module>
         <module>farm-shop-common</module>

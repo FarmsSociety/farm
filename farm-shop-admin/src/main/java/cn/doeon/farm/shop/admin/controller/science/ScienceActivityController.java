@@ -8,32 +8,27 @@
  * 版权所有，侵权必究！
  */
 
-package cn.doeon.farm.shop.scienceActivity.controller;
+package cn.doeon.farm.shop.admin.controller.science;
 
 import cn.doeon.farm.shop.bean.common.ResponseResult;
 import cn.doeon.farm.shop.bean.common.ResultMsg;
 import cn.doeon.farm.shop.bean.dto.ActivityInfoDto;
 import cn.doeon.farm.shop.bean.dto.ActivityParticipantsDto;
-import cn.doeon.farm.shop.bean.model.science.ActivityParticipants;
-import cn.doeon.farm.shop.bean.model.science.ActivityPraise;
 import cn.doeon.farm.shop.bean.enums.ResultStatus;
 import cn.doeon.farm.shop.bean.model.science.ActivityInfo;
-import cn.doeon.farm.shop.dao.ScienceActivityPraiseMapper;
+import cn.doeon.farm.shop.bean.model.science.ActivityParticipants;
+import cn.doeon.farm.shop.bean.model.science.ActivityPraise;
 import cn.doeon.farm.shop.service.ScienceActivityEvaluateService;
 import cn.doeon.farm.shop.service.ScienceActivityParticipantsService;
 import cn.doeon.farm.shop.service.ScienceActivityPraiseService;
 import cn.doeon.farm.shop.service.ScienceActivityService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author hexiangyi on 2018/10/26.

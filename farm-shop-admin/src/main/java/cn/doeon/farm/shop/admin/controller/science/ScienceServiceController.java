@@ -8,17 +8,20 @@
  * 版权所有，侵权必究！
  */
 
-package cn.doeon.farm.shop.scienceActivity.controller;
+package cn.doeon.farm.shop.admin.controller.science;
 
 import cn.doeon.farm.shop.bean.common.ResponseResult;
 import cn.doeon.farm.shop.bean.common.ResultMsg;
-import cn.doeon.farm.shop.bean.dto.ActivityInfoDto;
-import cn.doeon.farm.shop.bean.dto.ActivityParticipantsDto;
 import cn.doeon.farm.shop.bean.dto.ScienceParticipantsDto;
 import cn.doeon.farm.shop.bean.dto.ScienceServiceDto;
 import cn.doeon.farm.shop.bean.enums.ResultStatus;
-import cn.doeon.farm.shop.bean.model.science.*;
-import cn.doeon.farm.shop.service.*;
+import cn.doeon.farm.shop.bean.model.science.ScienceEvaluate;
+import cn.doeon.farm.shop.bean.model.science.ScienceParticipants;
+import cn.doeon.farm.shop.bean.model.science.ScienceService;
+import cn.doeon.farm.shop.service.ScienceActivityPraiseService;
+import cn.doeon.farm.shop.service.ScienceParticipantsService;
+import cn.doeon.farm.shop.service.ScienceScienceEvaluateService;
+import cn.doeon.farm.shop.service.ScienceServiceService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
