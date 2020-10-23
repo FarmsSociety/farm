@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.doeon.farm.shop.dao.ScienceParticipantsMapper">
+    <!-- 根据ID修改审核状态信息 -->
+    <update id="updatePersonScienceStatus" >
+        UPDATE science_service_participants SET sign_status = #{signStatus} WHERE id = #{id}
+    </update>
+    <select id="getSignUpScienceList" resultType="cn.doeon.farm.shop.bean.model.science.ScienceParticipants">
+        SELECT sa.* FROM science_service_participants sa
+        where 1=1
+        <if test="scienceParticipantsDto.name != null and scienceParticipantsDto.name != ''">
+            and sa.name like concat('%',#{scienceParticipantsDto.name},'%')
+        </if>
+        <if test="scienceParticipantsDto.id != null and scienceParticipantsDto.id != ''">
+            and sa.id =  #{scienceParticipantsDto.id}
+        </if>
+        <if test="scienceParticipantsDto.serviceId != null and scienceParticipantsDto.serviceId != ''">
+            and  sa.service_id  =  #{scienceParticipantsDto.serviceId}
+        </if>
+    </select>
+
+</mapper>

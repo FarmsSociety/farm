@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.doeon.farm.shop.dao.ScienceScienceEvaluateServiceMapper">
+
+    <!-- 获取某个活动评论列表   -->
+    <select id="getScienceEvaluateList" resultType="cn.doeon.farm.shop.bean.model.science.ScienceEvaluate">
+        SELECT * FROM science_service_evaluate where service_id = #{scienceId}
+    </select>
+
+    <select id="listByUserId" resultType="cn.doeon.farm.shop.bean.dto.ActivityEvaluateDto">
+        SELECT
+        sae.id,
+        sae.activity_id,
+        sae.user_id,
+        sae.content,
+        sap.name,
+        sap.avatar,
+        sae.date
+        FROM science_activity_evaluate sae
+        left join science_activity_participants sap on  sae.user_id = sap.id
+        where sae.user_id = #{userId}
+    </select>
+
+</mapper>

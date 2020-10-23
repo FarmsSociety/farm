@@ -14,6 +14,7 @@ import cn.doeon.farm.shop.bean.common.ResponseResult;
 import cn.doeon.farm.shop.bean.common.ResultMsg;
 import cn.doeon.farm.shop.bean.dto.ActivityInfoDto;
 import cn.doeon.farm.shop.bean.dto.ActivityParticipantsDto;
+import cn.doeon.farm.shop.bean.dto.ScienceParticipantsDto;
 import cn.doeon.farm.shop.bean.dto.ScienceServiceDto;
 import cn.doeon.farm.shop.bean.enums.ResultStatus;
 import cn.doeon.farm.shop.bean.model.science.*;
@@ -37,9 +38,9 @@ public class ScienceServiceController {
     @Autowired
     private ScienceServiceService scienceServiceService;
     @Autowired
-    private ScienceActivityParticipantsService scienceActivityParticipantsService;
+    private ScienceParticipantsService scienceParticipantsService;
     @Autowired
-    private ScienceActivityEvaluateService scienceActivityEvaluateService;
+    private ScienceScienceEvaluateService scienceScienceEvaluateService;
     @Autowired
     private ScienceActivityPraiseService scienceActivityPraiseService;
 
@@ -121,6 +122,129 @@ public class ScienceServiceController {
         return result;
     }
 
+    /**
+     * @Author hexy
+     * @Description  科技服务报名
+     * @Date 10:51 2020/10/15
+     * @Param
+     * @return
+     */
+    @ApiOperation(value = "科技服务报名", notes = "科技服务报名")
+    @PostMapping("/scienceSignUp")
+    public ResponseResult scienceSignUp(@RequestBody ScienceParticipants scienceParticipants) {
+        scienceParticipantsService.saveOrUpdate(scienceParticipants);
+        ResponseResult result = new ResponseResult();
+        result.setStatus(ResultStatus.SUCCESS.value());
+        result.setMsg(ResultMsg.MSG_SUCCESS);
+        return result;
+    }
+    /**
+     * @Author hexy
+     * @Description 科技服务报名审核
+     * @Date 11:38 2020/10/15
+     * @Param
+     * @return
+     */
+    @ApiOperation(value = "科技服务报名审核", notes = "科技服务报名审核")
+    @PutMapping("/updatePersonScienceStatus")
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult updatePersonScienceStatus(@RequestParam(name = "id") String id,
+                                                     @RequestParam(name = "signStatus") Integer signStatus) {
+        boolean isSuccess = scienceParticipantsService.updatePersonScienceStatus(id, signStatus);
+        ResponseResult result = new ResponseResult();
+        result.setStatus(isSuccess ? ResultStatus.SUCCESS.value() : ResultStatus.FAIL.value());
+        result.setMsg(isSuccess ? ResultMsg.MSG_SUCCESS : ResultMsg.MSG_FAIL);
+        return result;
+    }
+
+    /**
+     * @Author hexy
+     * @Description  科技服务报名列表
+     * @Date 11:57 2020/10/15
+     * @Param
+     * @return
+     */
+    @ApiOperation(value = "科技服务报名列表", notes = "科技服务报名列表")
+    @GetMapping("/getSignUpScienceList")
+    public ResponseResult<IPage<ScienceParticipants>> getSignUpScienceList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+                                                                             @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                                             ScienceParticipantsDto scienceParticipantsDto) {
+        ResponseResult<IPage<ScienceParticipants>> result = new ResponseResult<>();
+        Page<ScienceParticipants> page = new Page<>(pageNo, pageSize);
+        IPage<ScienceParticipants> scienceList = scienceParticipantsService.getSignUpScienceList(page,scienceParticipantsDto);
+        result.setData(scienceList);
+        result.setStatus(ResultStatus.SUCCESS.value());
+        result.setMsg(ResultMsg.MSG_SUCCESS);
+        return result;
+    }
+
+    /**
+     * 通过ID科技服务报名详情
+     * @return
+     */
+    @ApiOperation(value = "通过ID获取科技服务报名人详情", notes = "通过ID获取科技服务报名人详情")
+    @GetMapping("/infoById")
+    public ResponseResult<ScienceParticipants> getScienceInfoById(@RequestParam (name = "id") String id) {
+        ResponseResult<ScienceParticipants> result = new ResponseResult<>();
+        ScienceParticipants expert = scienceParticipantsService.getById(id);
+        result.setData(expert);
+        result.setStatus(ResultStatus.SUCCESS.value());
+        result.setMsg(ResultMsg.MSG_SUCCESS);
+        return result;
+    }
+
+    @ApiOperation(value = "获取某个科技服务评论列表-根据科技服务id获取", notes = "获取某个科技服务评论列表-根据科技服务id获取")
+    @GetMapping("/listByScienceId")
+    public ResponseResult<IPage<ScienceEvaluate>> getScienceEvaluateList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+                                                                           @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                                                                           @RequestParam(name = "scienceId")String ScienceId) {
+        ResponseResult<IPage<ScienceEvaluate>> result = new ResponseResult<>();
+        Page<ScienceService> page = new Page<>(pageNo, pageSize);
+        IPage<ScienceEvaluate> evaluateList = scienceScienceEvaluateService.getScienceEvaluateList(page, ScienceId);
+        result.setData(evaluateList);
+        result.setStatus(ResultStatus.SUCCESS.value());
+        result.setMsg(ResultMsg.MSG_SUCCESS);
+        return result;
+    }
+    /**
+     * 删除科技服务接口
+     * @return
+     */
+    @ApiOperation(value = "删除科技服务接口", notes = "删除科技服务接口")
+    @DeleteMapping("/deleteService")
+    public ResponseResult deleteService(@RequestParam (name = "id") String id) {
+        boolean isSuccess = scienceScienceEvaluateService.removeById(id);
+        ResponseResult result = new ResponseResult();
+        result.setStatus(isSuccess ? ResultStatus.SUCCESS.value() : ResultStatus.FAIL.value());
+        result.setMsg(isSuccess ? ResultMsg.MSG_SUCCESS : ResultMsg.MSG_FAIL);
+        return result;
+    }
+    /**
+     * 科技服务评价修改接口
+     * @return
+     */
+    @ApiOperation(value = "科技服务评价修改接口", notes = "科技服务评价修改接口")
+    @PutMapping("/updateEvaluateById")
+    public ResponseResult updateEvaluateById(@RequestBody ScienceEvaluate expert) {
+        boolean isSuccess = scienceScienceEvaluateService.updateById(expert);
+        ResponseResult result = new ResponseResult();
+        result.setStatus(isSuccess ? ResultStatus.SUCCESS.value() : ResultStatus.FAIL.value());
+        result.setMsg(isSuccess ? ResultMsg.MSG_SUCCESS : ResultMsg.MSG_FAIL);
+        return result;
+    }
+    /**
+     * 科技服务添加添加
+     * @return
+     */
+    @ApiOperation(value = "科技服务添加", notes = "科技服务添加")
+    @PostMapping("/addScienceEvaluation")
+    public ResponseResult addScienceEvaluation(@RequestBody ScienceEvaluate expertEvaluate) {
+        boolean isSuccess = scienceScienceEvaluateService.save(expertEvaluate);
+        ResponseResult result = new ResponseResult();
+        result.setStatus(isSuccess ? ResultStatus.SUCCESS.value() : ResultStatus.FAIL.value());
+        result.setMsg(isSuccess ? ResultMsg.MSG_SUCCESS : ResultMsg.MSG_FAIL);
+        return result;
+    }
 
 
 }
