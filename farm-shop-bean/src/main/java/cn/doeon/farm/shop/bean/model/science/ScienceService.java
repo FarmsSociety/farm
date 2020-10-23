@@ -10,6 +10,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @TableName("science_service")
@@ -25,12 +26,12 @@ public class ScienceService implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "开始时间", required = true)
-    private String startTime;
+    private Date startTime;
 
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "截止时间", required = true)
-    private String endTime;
+    private Date endTime;
 
     @ApiModelProperty(value = "活动内容", required = true)
     private String description;

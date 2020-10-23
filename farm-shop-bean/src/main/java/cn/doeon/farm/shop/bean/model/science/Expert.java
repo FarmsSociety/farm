@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -55,8 +56,8 @@ public class Expert implements Serializable {
     private String expertDetails;
 
     @ApiModelProperty(value = "专家工作开始时间",required=true)
-    private String startTime;
+    private Date startTime;
 
     @ApiModelProperty(value = "专家工作截止时间",required=true)
-    private String endTime;
+    private Date endTime;
 }
