@@ -15,7 +15,6 @@ import cn.doeon.farm.shop.service.WxactiveService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import cn.doeon.farm.shop.common.util.PageParam;
-import cn.doeon.farm.shop.bean.model.Notice;
 import cn.doeon.farm.shop.common.annotation.SysLog;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +25,14 @@ import javax.validation.Valid;
 import java.util.Date;
 
 /**
- * 公告管理
+ * 活动招募
  *
  * @author hzm
  * @date
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/wx/active")
+@RequestMapping("/wx/wxactive")
 public class WxactiveController {
 
     private final WxactiveService wxactiveService;
@@ -42,14 +41,15 @@ public class WxactiveController {
      * 分页查询
      *
      * @param page   分页对象
-     * @param notice 公告管理
+     * @param wxactive 公告管理
      * @return 分页数据
      */
     @GetMapping("/page")
     public ResponseEntity<IPage<Wxactive>> getWxactivePage(PageParam<Wxactive> page, Wxactive wxactive) {
-        IPage<Wxactive> wxactiveIPage = wxactiveService.page(page, new LambdaQueryWrapper<Wxactive>()
+        IPage<Wxactive> WxactiveIPage = wxactiveService.page(page, new LambdaQueryWrapper<Wxactive>()
+                .eq(wxactive.getStatus() != null, Wxactive::getStatus, wxactive.getStatus())
                 .like(wxactive.getTitle() != null, Wxactive::getTitle, wxactive.getTitle()).orderByDesc(Wxactive::getCreateTime));
-        return ResponseEntity.ok(wxactiveIPage);
+        return ResponseEntity.ok(WxactiveIPage);
     }
 
 
@@ -72,29 +72,34 @@ public class WxactiveController {
      */
     @SysLog("新增公告管理")
     @PostMapping
-    @GetMapping("/save")
+    @PreAuthorize("@pms.hasPermission('wx:wxactive:save')")
     public ResponseEntity<Boolean> save(@RequestBody @Valid Wxactive wxactive) {
-//        wxactive.setUpdateTime(new Date());
+        if (wxactive.getStatus() == 1) {
+            wxactive.setCreateTime(new Date());
+        }
+        wxactive.setCreateTime(new Date());
+        wxactiveService.removeWxactiveList();
         return ResponseEntity.ok(wxactiveService.save(wxactive));
     }
 
     /**
      * 修改公告管理
      *
-     * @param notice 公告管理
+     * @param wxactive 公告管理
      * @return 是否修改成功
      */
     @SysLog("修改公告管理")
     @PutMapping
-    @GetMapping("/update")
+    @PreAuthorize("@pms.hasPermission('wx:wxactive:update')")
     public ResponseEntity<Boolean> updateById(@RequestBody @Valid Wxactive wxactive) {
-//        Wxactive oldNotice = wxactive.getById(wxactive.getId());
-//        if (oldNotice.getStatus() == 0 && wxactive.getStatus() == 1) {
-//            wxactive.setUpdateTime(new Date());
-//        }
-//        wxactive.setUpdateTime(new Date());
-//        wxactiveService.removeNoticeList();
-//        wxactiveService.removeNoticeById(notice.getId());
+        Wxactive oldWxactive = wxactiveService.getById(wxactive.getId());
+        if (oldWxactive.getStatus() == 0 && wxactive.getStatus() == 1) {
+            wxactive.setCreateTime(new Date());
+        }
+        wxactive.setStartTime(new Date());
+        wxactive.setEndTime(new Date());
+        wxactiveService.removeWxactiveList();
+        wxactiveService.removeWxactiveById(wxactive.getId());
         return ResponseEntity.ok(wxactiveService.updateById(wxactive));
     }
 
@@ -105,11 +110,11 @@ public class WxactiveController {
      * @return 是否删除成功
      */
     @SysLog("删除公告管理")
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Boolean> removeById( Long id) {
-//        wxactiveService.removeNoticeList();
-        wxactiveService.removeNoticeById(id);
+    @DeleteMapping("/{id}")
+    @PreAuthorize("@pms.hasPermission('wx:wxactive:delete')")
+    public ResponseEntity<Boolean> removeById(@PathVariable Long id) {
+        wxactiveService.removeWxactiveList();
+        wxactiveService.removeWxactiveById(id);
         return ResponseEntity.ok(wxactiveService.removeById(id));
     }
-
 }

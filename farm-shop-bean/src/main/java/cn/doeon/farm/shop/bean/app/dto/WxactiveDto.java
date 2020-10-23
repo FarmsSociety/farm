@@ -1,12 +1,3 @@
-/*
- * Copyright (c) 2018-2999 广州亚米信息科技有限公司 All rights reserved.
- *
- * https://www.gz-yami.com/
- *
- * 未经允许，不可做商业用途！
- *
- * 版权所有，侵权必究！
- */
 
 package cn.doeon.farm.shop.bean.app.dto;
 
@@ -22,20 +13,28 @@ import java.util.Date;
 public class WxactiveDto {
 
     @JsonView(NoContent.class)
-    @ApiModelProperty(value = "id")
+    @ApiModelProperty(value = "编号ID")
     private Long id;
 
     @JsonView(NoContent.class)
-    @ApiModelProperty(value = "标题")
+    @ApiModelProperty(value = "招募简介")
+    private String intro;
+
+    @JsonView(NoContent.class)
+    @ApiModelProperty(value = "招募标题")
     private String title;
 
-    @ApiModelProperty(value = "详情")
+    @ApiModelProperty(value = "招募详情")
     @JsonView(WithContent.class)
     private String content;
 
     @JsonView(NoContent.class)
-    @ApiModelProperty(value = "发布时间")
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
+
+    @JsonView(NoContent.class)
+    @ApiModelProperty(value = "数据状态")
+    private Integer status;
 
     public static interface NoContent{}
 

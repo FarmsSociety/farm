@@ -24,5 +24,5 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  */
 public interface WxactiveMapper extends BaseMapper<Wxactive> {
 
-    Page<WxactiveDto> pageNotice(Page<WxactiveDto> page);
+    Page<WxactiveDto> pageWxactive(Page<WxactiveDto> page);
 }

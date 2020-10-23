@@ -15,8 +15,6 @@ import cn.doeon.farm.shop.bean.app.dto.WxactiveDto;
 import cn.doeon.farm.shop.bean.model.Wxactive;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import cn.doeon.farm.shop.bean.app.dto.NoticeDto;
-import cn.doeon.farm.shop.bean.model.Notice;
 
 import java.util.List;
 
@@ -32,9 +30,9 @@ public interface WxactiveService extends IService<Wxactive> {
 
     void removeWxactiveList();
 
-    Page<WxactiveDto> pageNotice(Page<WxactiveDto> page);
+    Page<WxactiveDto> pageWxactive(Page<WxactiveDto> page);
 
-    Wxactive getNoticeById(Long wxactiveId);
+    Wxactive getWxactiveById(Long wxactiveId);
 
-    void removeNoticeById(Long wxactiveId);
+    void removeWxactiveById(Long wxactiveId);
 }
