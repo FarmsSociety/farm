@@ -12,6 +12,8 @@ package cn.doeon.farm.shop.admin.controller;
 
 import java.io.IOException;
 
+import cn.doeon.farm.shop.bean.vo.FileVo;
+import cn.doeon.farm.shop.common.util.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,5 +53,10 @@ public class FileController {
 		String fileName =  attachFileService.uploadFile(editorFile);
         return ResponseEntity.ok(qiniu.getResourcesUrl() + fileName);
 	}
-	
+	@PostMapping("uploadImg")
+	public Msg uploadImg(@RequestParam("file") MultipartFile file) {
+		FileVo fileVo = attachFileService.uploadImg(file);
+		return Msg.success().add(fileVo);
+
+	}
 }

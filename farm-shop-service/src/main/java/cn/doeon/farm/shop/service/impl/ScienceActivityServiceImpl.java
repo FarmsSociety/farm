@@ -8,13 +8,15 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ScienceActivityServiceImpl extends ServiceImpl<ScienceActivityMapper, ActivityInfo> implements ScienceActivityService {
     @Autowired
     private ScienceActivityMapper scienceActivityMapper;
-
+    @Value("${file.uploadFolder}")
+    private String uploadFolder;
     @Override
     public IPage<ActivityInfo> getActivityList(Page page, ActivityInfoDto activityInfo) {
         return scienceActivityMapper.getActivityList(page,activityInfo);

@@ -20,5 +20,18 @@ spring:
   redis:
     redisson:
       config: classpath:redisson.yml
+  mvc:
+    static-path-pattern: /upload/**
+  resources:
+    static-locations: file:${file.uploadPath}
 logging:
   config: classpath:log4j2_dev.xml
+
+file:
+  staticAccessPath: /tmp/**
+  uploadFolder: file:E:/root/tmp/
+  accessPath: /uploadimg/
+  uploadPath: upload/blogImg/
+upload:
+  file-path-prefix: e:/root/tmp/
+

@@ -16,6 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,9 @@ public class ActiveController {
     private ScienceActivityEvaluateService scienceActivityEvaluateService;
     @Autowired
     private ScienceActivityPraiseService scienceActivityPraiseService;
+
+
+
     /**
      * 获取活动列表接口
      *
@@ -45,6 +49,7 @@ public class ActiveController {
     public ResponseResult<IPage<ActivityInfo>> getActivityList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                                                ActivityInfoDto activityInfo) {
+
         ResponseResult<IPage<ActivityInfo>> result = new ResponseResult<>();
         Page<ActivityInfo> page = new Page<>(pageNo, pageSize);
         IPage<ActivityInfo> activityList = scienceActivityService.getActivityList(page,activityInfo);
