@@ -1,4 +1,4 @@
-package cn.doeon.farm.shop.admin.controller;
+package cn.doeon.farm.shop.admin.controller.science;
 
 import cn.doeon.farm.shop.bean.common.ResponseResult;
 import cn.doeon.farm.shop.bean.common.ResultMsg;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/active")
+@RequestMapping("/science/active")
 @Api(tags = "活动招募")
 public class ActiveController {
     @Autowired
