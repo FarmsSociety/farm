@@ -79,9 +79,7 @@ public class AttachFileServiceImpl extends ServiceImpl<AttachFileMapper, AttachF
 		byte[] bytes = mfile.getBytes();
 		String originalName = mfile.getOriginalFilename();
 		String extName = FileUtil.extName(originalName);
-		String format = DateUtil.format(new Date(), NORM_MONTH_PATTERN);
-		// 真实路径，实际储存的路径
-		String path = "/root/tmp/";
+		String path = "/root/tmp/"+DateUtil.format(new Date(), NORM_MONTH_PATTERN);
 		String picName = IdUtil.simpleUUID() + "." + extName;
 		String fileName = path+ picName;
 		AttachFile attachFile = new AttachFile();
