@@ -27,7 +27,7 @@ public class ScienceActivityEvaluateController {
     @GetMapping("/listByActivityId")
     public ResponseResult<IPage<ActivityEvaluate>> getActivityEvaluateList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                                            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
-                                                                           @RequestParam(name = "activityId")String activityId) {
+                                                                           @RequestParam(name = "activityId",required = false)String activityId) {
         ResponseResult<IPage<ActivityEvaluate>> result = new ResponseResult<>();
         Page<ActivityInfo> page = new Page<>(pageNo, pageSize);
         IPage<ActivityEvaluate> evaluateList = scienceActivityEvaluateService.getActivityEvaluateList(page, activityId);

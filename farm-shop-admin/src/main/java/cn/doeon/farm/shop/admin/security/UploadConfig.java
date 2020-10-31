@@ -9,14 +9,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class UploadConfig implements WebMvcConfigurer{
-    @Value("${file.staticAccessPath}")
-    private String staticAccessPath;
-    @Value("${file.uploadFolder}")
-    private String uploadFolder;
-    @Value("${upload.file-path-prefix}")
-    private String uploadedFilePathPrefix;
+//    @Value("${file.staticAccessPath}")
+//    private String staticAccessPath;
+//    @Value("${file.uploadFolder}")
+//    private String uploadFolder;
+//    @Value("${upload.file-path-prefix}")
+//    private String uploadedFilePathPrefix;
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/tmp/**").addResourceLocations( uploadFolder);
+        registry.addResourceHandler("/tmp/**").addResourceLocations( "/root/tmp/");
     }
 }
