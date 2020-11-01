@@ -4,7 +4,11 @@
 
     <!-- 获取某个活动评论列表   -->
     <select id="getActivityEvaluateList" resultType="cn.doeon.farm.shop.bean.model.science.ActivityEvaluate">
-        SELECT * FROM science_activity_evaluate where activity_id = #{activityId}
+        SELECT * FROM science_activity_evaluate where 1=1
+        <if test="activityId != null and activityId  != ''">
+            and  activity_id = #{activityId}
+        </if>
+
     </select>
 
     <select id="listByUserId" resultType="cn.doeon.farm.shop.bean.dto.ActivityEvaluateDto">
@@ -18,7 +22,11 @@
         sae.date
         FROM science_activity_evaluate sae
         left join science_activity_participants sap on  sae.user_id = sap.id
-        where sae.user_id = #{userId}
+        where 1=1
+        <if test="userId != null and userId  != ''">
+            and  sae.user_id = #{userId}
+        </if>
+
     </select>
 
 </mapper>

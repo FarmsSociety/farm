@@ -15,8 +15,7 @@ import org.springframework.stereotype.Service;
 public class ScienceActivityServiceImpl extends ServiceImpl<ScienceActivityMapper, ActivityInfo> implements ScienceActivityService {
     @Autowired
     private ScienceActivityMapper scienceActivityMapper;
-    @Value("${file.uploadFolder}")
-    private String uploadFolder;
+
     @Override
     public IPage<ActivityInfo> getActivityList(Page page, ActivityInfoDto activityInfo) {
         return scienceActivityMapper.getActivityList(page,activityInfo);
