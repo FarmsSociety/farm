@@ -25,11 +25,11 @@ public class ActivityInfo implements Serializable {
     @ApiModelProperty(value ="活动名称", required = true)
     private String title;
     @ApiModelProperty(value ="活动开始时间")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date startTime;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     @ApiModelProperty(value ="活动结束时间")
     private Date endTime;
     @ApiModelProperty(value ="活动内容介绍", required = true)

@@ -40,8 +40,10 @@ public class ActivityParticipants implements Serializable {
     private String remark;
     @ApiModelProperty(value = "报名状态0:未审核1：审核未通过2：审核已通过", required = true)
     private String signStatus;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "报名时间", required = true)
+    @ApiModelProperty(value = "报名人ID", required = true)
+    private String userId;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+    @ApiModelProperty(value = "报名时间yyyy-MM-dd", required = true)
     private Date signTime;
 }

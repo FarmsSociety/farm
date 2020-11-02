@@ -20,10 +20,6 @@ spring:
   redis:
     redisson:
       config: classpath:redisson.yml
-  mvc:
-    static-path-pattern: /upload/**
-  resources:
-    static-locations: file:${file.uploadPath}
 logging:
   config: classpath:log4j2_dev.xml
 
