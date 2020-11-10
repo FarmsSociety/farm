@@ -47,6 +47,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                         "/v2/api-docs",
                         "/doc.html",
                         "/science/**",
+                        "/upload/**",
+                        "/root/**",
                         "/admin/**",
                         "/swagger-ui.html",
                         "/swagger-resources/**",

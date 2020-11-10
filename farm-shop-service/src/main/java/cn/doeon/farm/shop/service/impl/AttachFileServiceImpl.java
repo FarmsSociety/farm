@@ -60,16 +60,9 @@ public class AttachFileServiceImpl extends ServiceImpl<AttachFileMapper, AttachF
     @Autowired
     private BucketManager bucketManager;
 
-    @Autowired
-    private Auth auth;
-	// 文件的真实路径
-//	@Value("${file.uploadPath}")
-//	private String realBasePath;
-//	@Value("${file.uploadPath}")
-//	private String UPLOAD_FOLDER;
-//
-//	@Value("${server.port}")
-//	private int port;
+
+	@Value("${file.uploadPath}")
+	private String UPLOAD_FOLDER;
 
     public final static String NORM_MONTH_PATTERN = "yyyy/MM/";
 
@@ -79,7 +72,7 @@ public class AttachFileServiceImpl extends ServiceImpl<AttachFileMapper, AttachF
 		byte[] bytes = mfile.getBytes();
 		String originalName = mfile.getOriginalFilename();
 		String extName = FileUtil.extName(originalName);
-		String path = "/root/tmp/"+DateUtil.format(new Date(), NORM_MONTH_PATTERN);
+		String path = UPLOAD_FOLDER+DateUtil.format(new Date(), NORM_MONTH_PATTERN);
 		String picName = IdUtil.simpleUUID() + "." + extName;
 		String fileName = path+ picName;
 		AttachFile attachFile = new AttachFile();
@@ -104,38 +97,4 @@ public class AttachFileServiceImpl extends ServiceImpl<AttachFileMapper, AttachF
 	}
 
 
-
-	@Override
-	public FileVo uploadImg(MultipartFile file) {
-		//			// 判断是否为空
-//			if (Objects.isNull(file)) {
-//				log.error("上传图片异常：{}", Message.UPLOAD_NUll_ERROR.getMsg());
-//				throw new BusinessException(Message.UPLOAD_NUll_ERROR.getMsg());
-//			}
-//			// 不能大于10M
-//			if (file.getSize() > 1024 * 1024 * 10) {
-//				log.error("上传图片异常：{}", Message.UPLOAD_SIZE_ERROR.getMsg());
-//				throw new BusinessException(Message.UPLOAD_SIZE_ERROR.getMsg());
-//			}
-//
-//			// 获取图片原名称
-//			String imgName = file.getOriginalFilename();
-//			// 图片重命名
-//			String filename = UUIDUtil.getUUID(10) + imgName.substring(imgName.lastIndexOf("."));
-//
-//			File savePathFile = new File(UPLOAD_FOLDER);
-//			if (!savePathFile.exists()) {
-//				//若不存在该目录，则创建目录
-//				savePathFile.mkdirs();
-//			}
-//
-//			//将文件保存指定目录
-//			File newFile = new File(savePathFile.getAbsolutePath() + File.separator + filename);
-//			file.transferTo(newFile);
-//			// 返回信息
-//			String imgUrl = Constants.HTTP + InetAddress.getLocalHost().getHostAddress() + ":" + port + Constants.CONTEXT_PATH + Constants.UPLOAD + filename;
-//
-//			return FileVo.builder().filename(filename).imgUrl(imgUrl).build();
-		return new FileVo();
-	}
 }

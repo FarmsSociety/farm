@@ -53,10 +53,5 @@ public class FileController {
 		String fileName =  attachFileService.uploadFile(editorFile);
         return ResponseEntity.ok(qiniu.getResourcesUrl() + fileName);
 	}
-	@PostMapping("uploadImg")
-	public Msg uploadImg(@RequestParam("file") MultipartFile file) {
-		FileVo fileVo = attachFileService.uploadImg(file);
-		return Msg.success().add(fileVo);
 
-	}
 }

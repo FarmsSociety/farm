@@ -24,6 +24,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface AttachFileService extends IService<AttachFile> {
 
 	String uploadFile(MultipartFile file) throws IOException;
-	FileVo uploadImg(MultipartFile file);
 	void deleteFile(String fileName);
 }
